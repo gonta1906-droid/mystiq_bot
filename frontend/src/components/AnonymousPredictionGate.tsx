@@ -33,7 +33,7 @@ export default function AnonymousPredictionGate({
     const tg = window.Telegram?.WebApp
 
     if (tg?.HapticFeedback) {
-      tg.HapticFeedback.impactOccurred('light')
+      tg.HapticFeedback?.impactOccurred?.('light')
     }
 
     // Temporary local demo so the UI can be tested.

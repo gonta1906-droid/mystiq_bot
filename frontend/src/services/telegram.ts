@@ -6,8 +6,45 @@ export type TelegramUser = {
   language_code?: string
 }
 
-export function getTelegramWebApp() {
-  return window.Telegram?.WebApp
+type TelegramWebAppLike = {
+  initData?: string
+
+  initDataUnsafe?: {
+    user?: TelegramUser
+  }
+
+  viewportStableHeight?: number
+  viewportHeight?: number
+
+  ready?: () => void
+  expand?: () => void
+
+  MainButton?: {
+    hide?: () => void
+  }
+
+  BackButton?: {
+    onClick?: (callback: () => void) => void
+    offClick?: (callback: () => void) => void
+    show?: () => void
+    hide?: () => void
+  }
+
+  HapticFeedback?: {
+    impactOccurred?: (
+      style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft',
+    ) => void
+
+    notificationOccurred?: (
+      type: 'error' | 'success' | 'warning',
+    ) => void
+  }
+
+  openTelegramLink?: (url: string) => void
+}
+
+export function getTelegramWebApp(): TelegramWebAppLike | undefined {
+  return window.Telegram?.WebApp as TelegramWebAppLike | undefined
 }
 
 export function getTelegramUser(): TelegramUser | null {
@@ -16,49 +53,72 @@ export function getTelegramUser(): TelegramUser | null {
 
 export function initTelegram() {
   const tg = getTelegramWebApp()
+
   if (!tg) return
 
-  tg.ready()
-  tg.expand()
-  tg.MainButton?.hide()
+  tg.ready?.()
+  tg.expand?.()
+  tg.MainButton?.hide?.()
 
   const updateViewport = () => {
-    const height = tg.viewportStableHeight || tg.viewportHeight || window.innerHeight
-    document.documentElement.style.setProperty('--tg-viewport-height', `${height}px`)
+    const height =
+      tg.viewportStableHeight ||
+      tg.viewportHeight ||
+      window.innerHeight
+
+    document.documentElement.style.setProperty(
+      '--tg-viewport-height',
+      `${height}px`,
+    )
   }
 
   updateViewport()
+
   window.addEventListener('resize', updateViewport)
 }
 
 let telegramBackHandler: (() => void) | null = null
 
-export function setTelegramBackButton(onBack: (() => void) | null) {
+export function setTelegramBackButton(
+  onBack: (() => void) | null,
+) {
   const tg = getTelegramWebApp()
-  if (!tg?.BackButton) return
+  const backButton = tg?.BackButton
+
+  if (!backButton) return
 
   if (telegramBackHandler) {
-    tg.BackButton.offClick(telegramBackHandler)
+    backButton.offClick?.(telegramBackHandler)
     telegramBackHandler = null
   }
 
   if (onBack) {
     telegramBackHandler = onBack
-    tg.BackButton.onClick(onBack)
-    tg.BackButton.show()
+    backButton.onClick?.(onBack)
+    backButton.show?.()
   } else {
-    tg.BackButton.hide()
+    backButton.hide?.()
   }
 }
 
 export function haptic(
   style: 'light' | 'medium' | 'heavy' | 'rigid' | 'soft' = 'light',
 ) {
-  getTelegramWebApp()?.HapticFeedback?.impactOccurred(style)
+  const tg = getTelegramWebApp()
+
+  if (!tg?.HapticFeedback?.impactOccurred) return
+
+  tg.HapticFeedback.impactOccurred(style)
 }
 
-export function notificationHaptic(type: 'error' | 'success' | 'warning') {
-  getTelegramWebApp()?.HapticFeedback?.notificationOccurred(type)
+export function notificationHaptic(
+  type: 'error' | 'success' | 'warning',
+) {
+  const tg = getTelegramWebApp()
+
+  if (!tg?.HapticFeedback?.notificationOccurred) return
+
+  tg.HapticFeedback.notificationOccurred(type)
 }
 
 export async function shareText(text: string) {
@@ -76,5 +136,7 @@ export async function shareText(text: string) {
     return
   }
 
-  await navigator.clipboard?.writeText(text)
+  if (navigator.clipboard) {
+    await navigator.clipboard.writeText(text)
+  }
 }
