@@ -1,0 +1,1336 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #08020f;
+  --bg-soft: #10051b;
+  --panel: rgba(19, 9, 29, .82);
+  --panel-2: rgba(29, 13, 44, .82);
+  --purple: #9637ed;
+  --purple-2: #c46aff;
+  --purple-soft: rgba(171, 79, 255, .22);
+  --line: rgba(210, 145, 255, .28);
+  --text-soft: rgba(255, 255, 255, .58);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+#root {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  min-height: 100dvh;
+}
+
+.app-shell {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding:
+    calc(16px + var(--safe-top))
+    max(16px, env(safe-area-inset-right, 0px))
+    calc(24px + var(--safe-bottom))
+    max(16px, env(safe-area-inset-left, 0px));
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(121, 37, 197, .32), transparent 31%),
+    radial-gradient(circle at 50% 35%, rgba(100, 25, 160, .09), transparent 38%),
+    linear-gradient(180deg, #12051e 0%, #08020f 65%, #050108 100%);
+}
+
+.app-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: .55;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.55) 0 1px, transparent 1.3px);
+  background-size: 92px 92px;
+  background-position: 12px 8px;
+  mask-image: linear-gradient(to bottom, black, transparent 92%);
+}
+
+.app-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(164, 75, 255, .035), transparent);
+}
+
+.home-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.home-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.home-brand-symbol {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(203, 119, 255, .62);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 21px;
+  background: radial-gradient(circle, rgba(180, 71, 255, .5), rgba(55, 10, 78, .35));
+  box-shadow: 0 0 24px rgba(161, 61, 255, .55);
+  animation: float 4s ease-in-out infinite;
+}
+
+.home-brand-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.home-brand-tagline {
+  color: var(--text-soft);
+  font-size: 8px;
+  letter-spacing: .4px;
+}
+
+.profile-button,
+.circle-back {
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.035);
+  color: #c9a4ff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile-button {
+  width: 43px;
+  height: 43px;
+}
+
+.home-content {
+  flex: 1;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding-top: 34px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prediction-label {
+  color: #d9b7ff;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+}
+
+.prediction-status {
+  margin-top: 5px;
+  color: rgba(255,255,255,.38);
+  font-size: 9px;
+  letter-spacing: .8px;
+}
+
+.home-card-wrap {
+  position: relative;
+  width: 220px;
+  height: 270px;
+  margin: 48px auto 26px;
+  display: grid;
+  place-items: center;
+}
+
+.home-card-glow {
+  position: absolute;
+  width: 150px;
+  height: 190px;
+  border-radius: 35%;
+  background: rgba(160, 55, 255, .42);
+  filter: blur(38px);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.prediction-card-preview {
+  position: relative;
+  width: 176px;
+  height: 250px;
+  padding: 9px;
+  border-radius: 17px;
+  border: 1px solid rgba(204, 125, 255, .66);
+  background: linear-gradient(145deg, #1b0a29, #09020f);
+  box-shadow:
+    0 0 18px rgba(160, 65, 255, .6),
+    inset 0 0 0 1px rgba(255,255,255,.08);
+  transform: rotate(-1.5deg);
+  animation: cardFloat 4.5s ease-in-out infinite;
+}
+
+.preview-inner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  border: 1px solid rgba(205, 121, 255, .27);
+  background: radial-gradient(circle at 50% 42%, rgba(154, 51, 239, .22), transparent 42%);
+}
+
+.preview-orb,
+.front-orb {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(223, 171, 255, .72);
+  border-radius: 50%;
+  color: #fff;
+  background: radial-gradient(circle, rgba(180, 75, 255, .46), rgba(36, 10, 49, .62));
+  box-shadow: 0 0 25px rgba(174, 65, 255, .7);
+}
+
+.preview-orb {
+  width: 67px;
+  height: 67px;
+  font-size: 31px;
+  animation: orbPulse 2.6s ease-in-out infinite;
+}
+
+.home-content h1,
+.prediction-card-back h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+}
+
+.home-content h1 {
+  font-size: 29px;
+}
+
+.prediction-date {
+  margin: 5px 0 20px;
+  color: rgba(255,255,255,.52);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 14px;
+}
+
+.primary-button,
+.secondary-button {
+  width: min(100%, 380px);
+  min-height: 48px;
+  border-radius: 13px;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.primary-button {
+  border: 1px solid rgba(233, 190, 255, .62);
+  color: #fff;
+  background: linear-gradient(180deg, #9b38eb, #7d24d1);
+  box-shadow: 0 0 25px rgba(142, 39, 225, .5);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(.97);
+}
+
+.primary-button:hover {
+  box-shadow: 0 0 35px rgba(174, 69, 255, .65);
+}
+
+.streak {
+  margin-top: 12px;
+  padding: 7px 13px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  color: rgba(255,255,255,.48);
+  background: rgba(255,255,255,.025);
+  font-size: 10px;
+}
+
+.streak strong {
+  color: #fff;
+}
+
+.bottom-navigation {
+  width: min(100%, 430px);
+  margin: 20px auto 0;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.nav-item {
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.34);
+  padding: 8px 2px calc(4px + var(--safe-bottom));
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-item span {
+  font-size: 17px;
+}
+
+.nav-item small {
+  font-size: 8px;
+}
+
+.nav-item.active {
+  color: #c783ff;
+  text-shadow: 0 0 12px rgba(196, 106, 255, .75);
+}
+
+.prediction-screen {
+  align-items: center;
+}
+
+.prediction-header {
+  width: 100%;
+  max-width: 420px;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.circle-back {
+  width: 38px;
+  height: 38px;
+  font-size: 20px;
+}
+
+.prediction-heading {
+  min-width: 0;
+}
+
+.prediction-header-title {
+  color: #f0d9ff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .6px;
+}
+
+.prediction-header-subtitle {
+  margin-top: 2px;
+  color: rgba(255,255,255,.38);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+}
+
+.prediction-intro {
+  width: 100%;
+  max-width: 420px;
+  margin-top: 9px;
+  color: rgba(255,255,255,.45);
+  text-align: center;
+  font-size: 9px;
+  letter-spacing: 1.1px;
+}
+
+.card-stage {
+  width: 100%;
+  max-width: 420px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prediction-flip-card {
+  width: min(76vw, 270px);
+  height: min(104vw, 360px);
+  max-height: 390px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.prediction-flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .9s cubic-bezier(.2,.78,.2,1);
+}
+
+.card-stage.is-opened .prediction-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.prediction-card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1px solid rgba(213, 138, 255, .66);
+  box-shadow:
+    0 0 27px rgba(157, 57, 255, .47),
+    inset 0 0 0 8px rgba(90, 28, 122, .16),
+    inset 0 0 0 9px rgba(255,255,255,.025);
+  background: linear-gradient(145deg, #1a0828, #08020f 65%);
+}
+
+.prediction-card-front {
+  display: grid;
+  place-items: center;
+}
+
+.front-card {
+  width: 62%;
+  height: 70%;
+  border-radius: 13px;
+  border: 1px solid rgba(215, 135, 255, .35);
+  background:
+    radial-gradient(circle at 50% 33%, rgba(162, 58, 244, .22), transparent 35%),
+    linear-gradient(160deg, rgba(54,18,74,.9), rgba(15,4,24,.96));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.front-orb {
+  width: 70px;
+  height: 70px;
+  font-size: 32px;
+  margin-bottom: 7px;
+}
+
+.front-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+}
+
+.front-tagline {
+  color: rgba(255,255,255,.46);
+  font-size: 8px;
+}
+
+.card-tap-hint {
+  margin-top: 19px;
+  color: rgba(218, 162, 255, .4);
+  font-size: 8px;
+  letter-spacing: .6px;
+}
+
+.prediction-card-back {
+  transform: rotateY(180deg);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+}
+
+.card-back-glow {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(168, 62, 246, .25);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.prediction-card-category {
+  position: relative;
+  color: #dca7ff;
+  font-size: 10px;
+  letter-spacing: .8px;
+}
+
+.prediction-card-back h1 {
+  position: relative;
+  margin-top: 34px;
+  font-family: Inter, sans-serif;
+  font-size: clamp(22px, 6vw, 30px);
+  line-height: 1.15;
+}
+
+.prediction-card-divider {
+  position: relative;
+  margin: 17px 0 20px;
+  color: #c16aff;
+  text-shadow: 0 0 15px #c16aff;
+}
+
+.prediction-card-back p {
+  position: relative;
+  max-width: 215px;
+  margin: 0;
+  color: rgba(255,255,255,.78);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.card-back-footer {
+  margin-top: auto;
+  color: rgba(255,255,255,.2);
+  font-size: 8px;
+  letter-spacing: 3px;
+}
+
+.open-card-button {
+  width: min(76vw, 270px);
+  margin-top: 20px;
+}
+
+.prediction-extra {
+  width: 100%;
+  max-width: 420px;
+  opacity: 0;
+  transform: translateY(25px);
+  pointer-events: none;
+  transition: opacity .65s ease .25s, transform .65s cubic-bezier(.2,.75,.2,1) .25s;
+}
+
+.prediction-extra.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.prediction-details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.prediction-detail {
+  min-height: 68px;
+  padding: 13px 12px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 13px;
+  background: rgba(255,255,255,.025);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-icon {
+  color: #c66dff;
+  font-size: 17px;
+  text-shadow: 0 0 12px #b65cff;
+}
+
+.prediction-detail small {
+  display: block;
+  color: rgba(255,255,255,.42);
+  font-size: 8px;
+  margin-bottom: 4px;
+}
+
+.prediction-detail strong {
+  display: block;
+  color: rgba(255,255,255,.83);
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.prediction-quote {
+  margin: 22px 0;
+  color: rgba(255,255,255,.43);
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.prediction-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.secondary-button {
+  border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.63);
+  background: rgba(255,255,255,.025);
+}
+
+.splash-screen {
+  width: 100%;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 5px;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(151, 54, 235, .22), transparent 25%),
+    #08020f;
+}
+
+.splash-orb {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(212, 135, 255, .7);
+  border-radius: 50%;
+  box-shadow: 0 0 35px rgba(162, 60, 255, .7);
+  animation: orbPulse 1.6s ease-in-out infinite;
+}
+
+.splash-orb span {
+  font-size: 30px;
+}
+
+.splash-brand {
+  margin-top: 7px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.splash-tagline {
+  color: rgba(255,255,255,.45);
+  font-size: 9px;
+}
+
+.splash-loader {
+  display: flex;
+  gap: 5px;
+  margin-top: 28px;
+}
+
+.splash-loader span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #bd65ff;
+  animation: loading 1s infinite alternate;
+}
+
+.splash-loader span:nth-child(2) { animation-delay: .15s; }
+.splash-loader span:nth-child(3) { animation-delay: .3s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: rotate(-1.5deg) translateY(0); }
+  50% { transform: rotate(1deg) translateY(-8px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: .55; transform: scale(.95); }
+  50% { opacity: .9; transform: scale(1.08); }
+}
+
+@keyframes orbPulse {
+  0%, 100% { box-shadow: 0 0 18px rgba(174,65,255,.5); }
+  50% { box-shadow: 0 0 38px rgba(174,65,255,.95); }
+}
+
+@keyframes loading {
+  from { opacity: .25; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(-4px); }
+}
+
+@media (max-width: 380px) {
+  .app-shell {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .home-card-wrap {
+    margin-top: 35px;
+  }
+
+  .prediction-flip-card {
+    width: min(76vw, 250px);
+    height: min(105vw, 335px);
+  }
+
+  .prediction-card-back {
+    padding: 22px 17px;
+  }
+
+  .prediction-card-back h1 {
+    margin-top: 25px;
+    font-size: 22px;
+  }
+
+  .prediction-card-back p {
+    font-size: 11px;
+  }
+}
+
+@media (min-width: 700px) {
+  body {
+    display: flex;
+    justify-content: center;
+    background: #020107;
+  }
+
+  #root {
+    width: 520px;
+  }
+
+  .app-shell {
+    box-shadow: 0 0 80px rgba(123, 39, 190, .18);
+  }
+}
+
+/* =========================================================
+   MYSTIQ — TELEGRAM MOBILE FIX
+   ========================================================= */
+
+html,
+body {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: #07030d;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ---------- PREDICTION SCREEN ---------- */
+
+.prediction-screen {
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  margin: 0;
+  padding:
+    max(16px, env(safe-area-inset-top))
+    max(14px, env(safe-area-inset-right))
+    max(24px, env(safe-area-inset-bottom))
+    max(14px, env(safe-area-inset-left));
+
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(123, 43, 180, 0.16),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 50% 55%,
+      rgba(91, 32, 140, 0.08),
+      transparent 40%
+    ),
+    #07030d;
+}
+
+/* ---------- HEADER ---------- */
+
+.prediction-header {
+  width: 100%;
+  max-width: 430px;
+
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  grid-template-rows: auto auto;
+
+  column-gap: 10px;
+
+  margin: 0 auto;
+}
+
+.prediction-back-button {
+  grid-column: 1;
+  grid-row: 1 / 3;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border-radius: 50%;
+  border: 1px solid rgba(190, 115, 255, 0.4);
+
+  background: rgba(20, 8, 30, 0.75);
+  color: #fff;
+
+  font-size: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 0 18px rgba(151, 58, 255, 0.18);
+
+  cursor: pointer;
+}
+
+.prediction-header-title {
+  min-width: 0;
+
+  color: #f7eaff;
+
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: 700;
+
+  line-height: 1.15;
+}
+
+.prediction-header-subtitle {
+  margin-top: 3px;
+
+  color: rgba(214, 177, 238, 0.58);
+
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+/* ---------- INTRO ---------- */
+
+.prediction-intro {
+  width: 100%;
+  max-width: 430px;
+
+  margin: 8px auto 16px;
+
+  text-align: center;
+
+  color: rgba(218, 176, 240, 0.62);
+
+  font-size: 11px;
+  letter-spacing: 1px;
+
+  line-height: 1.4;
+}
+
+/* ---------- CARD ---------- */
+
+.prediction-flip-card {
+  position: relative;
+
+  width: min(270px, calc(100% - 40px));
+  aspect-ratio: 0.68;
+
+  margin: 8px auto 20px;
+
+  perspective: 1200px;
+
+  flex-shrink: 0;
+
+  cursor: pointer;
+}
+
+.prediction-flip-inner {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.9s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.prediction-flip-card.opened .prediction-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.prediction-card-face {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: 20px;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(193, 103, 255, 0.72);
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(132, 45, 184, 0.2),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      #170825,
+      #08030e 72%
+    );
+
+  box-shadow:
+    0 0 12px rgba(168, 70, 255, 0.5),
+    0 0 38px rgba(130, 39, 210, 0.22);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.prediction-card-back {
+  transform: rotateY(180deg);
+
+  padding: 30px 24px;
+  text-align: center;
+
+  flex-direction: column;
+}
+
+/* ---------- FRONT ---------- */
+
+.card-inner-frame {
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+
+  border: 1px solid rgba(187, 103, 244, 0.38);
+  border-radius: 13px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+.card-magic-symbol {
+  width: 70px;
+  height: 70px;
+
+  margin-bottom: 22px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(218, 155, 255, 0.75);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-size: 36px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(181, 74, 255, 0.34),
+      rgba(24, 7, 38, 0.8)
+    );
+
+  box-shadow:
+    0 0 25px rgba(170, 68, 255, 0.55);
+}
+
+.card-front-title {
+  color: white;
+
+  font-family: Georgia, serif;
+
+  font-size: 24px;
+  letter-spacing: 3px;
+}
+
+.card-front-subtitle {
+  margin-top: 7px;
+
+  color: rgba(220, 186, 235, 0.6);
+
+  font-size: 10px;
+}
+
+.card-tap-hint {
+  position: absolute;
+  bottom: 25px;
+
+  color: rgba(212, 165, 238, 0.55);
+
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- BACK ---------- */
+
+.card-back-glow {
+  position: absolute;
+  inset: 15% 10%;
+
+  background: radial-gradient(
+    circle,
+    rgba(151, 54, 230, 0.16),
+    transparent 65%
+  );
+
+  pointer-events: none;
+}
+
+.prediction-card-category {
+  position: relative;
+
+  color: #d18aff;
+
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.prediction-card-back h1 {
+  position: relative;
+
+  margin: 25px 0 15px;
+
+  max-width: 230px;
+
+  color: #fff;
+
+  font-size: clamp(23px, 6vw, 30px);
+  line-height: 1.15;
+
+  font-weight: 500;
+}
+
+.prediction-card-divider {
+  color: #d98cff;
+
+  font-size: 18px;
+
+  margin-bottom: 20px;
+}
+
+.prediction-card-back p {
+  position: relative;
+
+  max-width: 230px;
+
+  margin: 0;
+
+  color: rgba(245, 235, 250, 0.88);
+
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.card-back-footer {
+  position: absolute;
+  bottom: 15px;
+
+  color: rgba(190, 126, 220, 0.3);
+
+  font-size: 8px;
+  letter-spacing: 3px;
+}
+
+/* ---------- OPEN BUTTON ---------- */
+
+.open-card-button {
+  width: min(270px, calc(100% - 40px));
+  height: 48px;
+
+  margin: 0 auto 22px;
+
+  border: 1px solid rgba(221, 164, 255, 0.7);
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #8224dc,
+      #9b36ed
+    );
+
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  box-shadow:
+    0 0 25px rgba(141, 45, 226, 0.48);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.open-card-button:active {
+  transform: scale(0.97);
+}
+
+/* ---------- EXTRA ---------- */
+
+.prediction-extra {
+  width: 100%;
+  max-width: 430px;
+
+  margin: 0 auto;
+
+  opacity: 0;
+  transform: translateY(20px);
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s ease;
+}
+
+.prediction-extra.visible {
+  opacity: 1;
+  transform: translateY(0);
+
+  pointer-events: auto;
+}
+
+.prediction-details {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.prediction-detail {
+  min-width: 0;
+
+  padding: 14px 12px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(180, 120, 220, 0.18);
+
+  background: rgba(21, 12, 29, 0.7);
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.detail-icon {
+  flex-shrink: 0;
+
+  color: #d58aff;
+
+  font-size: 16px;
+}
+
+.prediction-detail small {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: rgba(211, 184, 223, 0.5);
+
+  font-size: 9px;
+}
+
+.prediction-detail strong {
+  display: block;
+
+  color: rgba(245, 235, 250, 0.9);
+
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.prediction-quote {
+  margin: 25px auto 20px;
+
+  max-width: 350px;
+
+  text-align: center;
+
+  color: rgba(220, 191, 229, 0.58);
+
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.prediction-actions {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.share-button,
+.gift-button {
+  width: 100%;
+  min-height: 46px;
+
+  border-radius: 13px;
+
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+
+  cursor: pointer;
+}
+
+.share-button {
+  border: 1px solid rgba(221, 164, 255, 0.7);
+
+  background: linear-gradient(
+    135deg,
+    #8224dc,
+    #9b36ed
+  );
+
+  color: white;
+
+  box-shadow:
+    0 0 22px rgba(141, 45, 226, 0.35);
+}
+
+.gift-button {
+  border: 1px solid rgba(180, 120, 220, 0.2);
+
+  background: rgba(20, 12, 28, 0.8);
+
+  color: rgba(245, 235, 250, 0.75);
+}
+
+/* =========================================================
+   VERY SMALL TELEGRAM SCREENS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .prediction-screen {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .prediction-flip-card {
+    width: min(250px, calc(100% - 30px));
+  }
+
+  .prediction-card-back {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .prediction-details {
+    gap: 7px;
+  }
+
+  .prediction-detail {
+    padding: 11px 9px;
+  }
+
+  .prediction-detail strong {
+    font-size: 9px;
+  }
+}
+
+/* =========================================================
+   TELEGRAM SAFE AREA
+   ========================================================= */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .prediction-screen {
+    padding-bottom:
+      calc(24px + env(safe-area-inset-bottom));
+  }
+}
+/* Telegram Mini App polish */
+html {
+  background: #07030d;
+  overscroll-behavior: none;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+button {
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.app-shell,
+.sub-screen,
+.prediction-screen {
+  min-height: var(--tg-viewport-height, 100dvh);
+}
+
+.gifts-demo-button {
+  margin-top: 14px;
+}
+
+@media (max-width: 430px) {
+  .sub-screen {
+    padding-top: calc(14px + env(safe-area-inset-top));
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}

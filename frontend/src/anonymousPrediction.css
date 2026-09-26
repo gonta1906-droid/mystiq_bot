@@ -1,0 +1,50 @@
+.anonymous-prediction-button,
+.anonymous-prediction-stars-button {
+  width: 100%;
+  min-height: 54px;
+  border: 1px solid rgba(170, 110, 255, .45);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(108, 58, 190, .34), rgba(36, 17, 65, .8));
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .04em;
+  cursor: pointer;
+  box-shadow: 0 10px 35px rgba(89, 35, 170, .22);
+}
+
+.anonymous-prediction-button span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  opacity: .7;
+}
+
+.anonymous-prediction-paywall {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px;
+  border: 1px solid rgba(170, 110, 255, .28);
+  border-radius: 24px;
+  background: rgba(24, 12, 42, .72);
+  text-align: center;
+}
+
+.anonymous-prediction-icon {
+  font-size: 38px;
+  margin-bottom: 8px;
+}
+
+.anonymous-prediction-paywall h2 {
+  margin: 0 0 8px;
+}
+
+.anonymous-prediction-paywall p {
+  margin: 0 auto 18px;
+  max-width: 420px;
+  line-height: 1.55;
+  opacity: .72;
+}
+
+.anonymous-prediction-stars-button {
+  max-width: 360px;
+}
