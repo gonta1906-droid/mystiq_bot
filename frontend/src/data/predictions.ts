@@ -1,4 +1,4 @@
-﻿export interface Prediction {
+export interface Prediction {
   category: string
   title: string
   text: string
@@ -8,12 +8,12 @@
 }
 
 export const todayPrediction: Prediction = {
-  category: 'рџ’њ РџРћР§РЈРўРўРЇ',
-  title: 'РЎР»РѕРІР° РјР°СЋС‚СЊ Р·РЅР°С‡РµРЅРЅСЏ',
-  text: 'РћРґРЅР° РєРѕСЂРѕС‚РєР° СЂРѕР·РјРѕРІР° СЃСЊРѕРіРѕРґРЅС– РјРѕР¶Рµ РјР°С‚Рё Р±С–Р»СЊС€Рµ Р·РЅР°С‡РµРЅРЅСЏ, РЅС–Р¶ Р·РґР°С”С‚СЊСЃСЏ Р·Р°СЂР°Р·.',
-  moment: 'Р’РµС‡С–СЂ',
-  advice: 'Р“РѕРІРѕСЂРё С‡РµСЃРЅРѕ, Р°Р»Рµ РјвЂ™СЏРєРѕ.',
-  quote: 'В«Р†РЅРѕРґС– СЃР°РјРµ РЅРµСЃРїРѕРґС–РІР°РЅРµ РІРµРґРµ РґРѕ РЅР°Р№РєСЂР°С‰РѕРіРѕ.В»',
+  category: '💜 ПОЧУТТЯ',
+  title: 'Слова мають значення',
+  text: 'Одна коротка розмова сьогодні може мати більше значення, ніж здається зараз.',
+  moment: 'Вечір',
+  advice: 'Говори чесно, але м’яко.',
+  quote: '«Іноді саме несподіване веде до найкращого.»',
 }
 export function getDateKey(date: Date = new Date()): string {
   const year = date.getFullYear()
